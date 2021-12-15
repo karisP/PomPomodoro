@@ -16,7 +16,10 @@ function App() {
 
   const pomImage = <>
     {resultData ?
-      <img src={resultData.children[randomInt].data.thumbnail} alt={resultData.children[randomInt].data.title} />
+      <img
+        src={resultData.children[randomInt].data.thumbnail}
+        alt={resultData.children[randomInt].data.title}
+      />
       : null}
   </>;
 

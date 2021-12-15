@@ -1,5 +1,7 @@
 import React from 'react';
 import useInterval from '../hooks/useInterval';
+import './Timer.module.css';
+import audio from '../media/cheeringperson.mp3';
 
 const Timer = (props) => {
     const initialMinutes = 1;
@@ -10,6 +12,11 @@ const Timer = (props) => {
     const [clickCount, setClickCount] = React.useState(0);
     useInterval(() => countDownSeconds(), secondDelay);
     useInterval(() => countDownMinutes(), minuteDelay);
+
+    const playSound = () => {
+        let alarm = new Audio(audio);
+        alarm.play();
+    };
 
     const countDownMinutes = () => {
         if (minute > 0){
@@ -25,6 +32,7 @@ const Timer = (props) => {
         } else {
             if (minute === 0 && second === 0){
                 stopTimer();
+                playSound();
             } else {
                 setSecond(59);
             };
@@ -71,9 +79,11 @@ const Timer = (props) => {
                 null
             }
             <div>{displayTime(minute)} : {displayTime(second)}</div>
-            <button onClick={startTimer}>Start Timer</button>
-            <button onClick={stopTimer}>Stop Timer</button>
-            <button onClick={clearTimer}>Clear Timer</button>
+            <div>
+                <button onClick={startTimer}>Start</button>
+                <button onClick={stopTimer}>Stop</button>
+                <button onClick={clearTimer}>Clear</button>
+            </div>
         </>
     );
 };
