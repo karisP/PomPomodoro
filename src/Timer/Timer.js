@@ -1,8 +1,8 @@
 import React from 'react';
 import useInterval from '../hooks/useInterval';
 
-const Timer = () => {
-    const initialMinutes = 25;
+const Timer = (props) => {
+    const initialMinutes = 1;
     const [minute, setMinute] = React.useState(initialMinutes);
     const [second, setSecond] = React.useState(60);
     const [minuteDelay, setMinuteDelay] = React.useState(null);
@@ -62,6 +62,14 @@ const Timer = () => {
 
     return (
         <>
+            {minute === 0 && second === 0 ?
+                <div>
+                    {props.pomImage !== null ? props.pomImage : null}
+                    <div>Take A Break!</div>
+                </div>
+                :
+                null
+            }
             <div>{displayTime(minute)} : {displayTime(second)}</div>
             <button onClick={startTimer}>Start Timer</button>
             <button onClick={stopTimer}>Stop Timer</button>
