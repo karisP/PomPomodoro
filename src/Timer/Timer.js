@@ -1,10 +1,12 @@
 import React from 'react';
 import useInterval from '../hooks/useInterval';
+import Toggle from '../Toggle/Toggle';
 import './Timer.module.css';
 import audio from '../media/cheeringperson.mp3';
 
 const Timer = (props) => {
-    const initialMinutes = 1;
+    const [mode, setMode] = React.useState(false);
+    const [initialMinutes, setInitialMinutes] = React.useState(1);
     const [minute, setMinute] = React.useState(initialMinutes);
     const [second, setSecond] = React.useState(60);
     const [minuteDelay, setMinuteDelay] = React.useState(null);
@@ -12,6 +14,11 @@ const Timer = (props) => {
     const [clickCount, setClickCount] = React.useState(0);
     useInterval(() => countDownSeconds(), secondDelay);
     useInterval(() => countDownMinutes(), minuteDelay);
+    const timerFinished = (minute === 0 && second === 0);
+
+    React.useEffect(() => {
+        setMinute(initialMinutes);
+    }, [initialMinutes]);
 
     const playSound = () => {
         let alarm = new Audio(audio);
@@ -30,8 +37,9 @@ const Timer = (props) => {
         if (second > 0){
             setSecond(second - 1);
         } else {
-            if (minute === 0 && second === 0){
+            if (timerFinished){
                 stopTimer();
+                setMode(!mode);
                 playSound();
             } else {
                 setSecond(59);
@@ -70,7 +78,8 @@ const Timer = (props) => {
 
     return (
         <>
-            {minute === 0 && second === 0 ?
+            <Toggle onToggle={() => setMode(!mode)} checked={mode}/>
+            {timerFinished ?
                 <div>
                     {props.pomImage !== null ? props.pomImage : null}
                     <div>Take A Break!</div>
@@ -82,7 +91,14 @@ const Timer = (props) => {
             <div>
                 <button onClick={startTimer}>Start</button>
                 <button onClick={stopTimer}>Stop</button>
-                <button onClick={clearTimer}>Clear</button>
+                <button onClick={clearTimer}>Reset</button>
+            </div>
+            <div>
+                <button onClick={() => setInitialMinutes(5)}>5 min</button>
+                <button onClick={() => setInitialMinutes(10)}>10 min</button>
+                <button onClick={() => setInitialMinutes(15)}>15 min</button>
+                <button onClick={() => setInitialMinutes(20)}>20 min</button>
+                <button onClick={() => setInitialMinutes(25)}>25 min</button>
             </div>
         </>
     );

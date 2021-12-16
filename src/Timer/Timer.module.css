@@ -1,5 +1,5 @@
-button:nth-child(2) {
-    margin: 0 4px;
+button:not(:last-child) {
+    margin-right: 4px;
 }
 
 button {
