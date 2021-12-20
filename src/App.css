@@ -3,13 +3,20 @@
 }
 
 .App-header {
+  position: relative;
   background-image: url('./media/pompom_bkgrd.jpeg');
   background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: slategray;
+  justify-content: center;
+}
+
+.App-header h1 {
+  position: absolute;
+  top: 5%;
+  padding: 10px 20px;
 }

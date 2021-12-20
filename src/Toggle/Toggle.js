@@ -11,12 +11,12 @@ const Toggle = (props) => {
 
     return (
         <div className={styles.toggle}>
-            Focus
+            Break
             <label className={styles.switch}>
                 <input type="checkbox" onChange={(e) => onChangeToggle(e)} checked={props.checked} />
                 <span className={`${styles.slider} ${styles.round}`}></span>
             </label>
-            Break
+            Focus
         </div>
     )
 }
