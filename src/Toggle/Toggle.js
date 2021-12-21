@@ -2,10 +2,8 @@ import * as React from 'react';
 import styles from './Toggle.module.css';
 
 const Toggle = (props) => {
-    //const [checked, setChecked] = React.useState(false);
 
     const onChangeToggle = (e) => {
-        //setChecked(e.currentTarget.checked);
         props.onToggle(e.currentTarget.checked);
     };
 

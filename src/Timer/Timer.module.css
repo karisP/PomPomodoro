@@ -18,10 +18,6 @@ button:active {
     background-color: rgb(244, 189, 88);
 }
 
-/* button:focus {
-    border: 1px solid blue;
-} */
-
 .imageContainer {
     display: flex;
     flex-direction: column;
