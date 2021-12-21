@@ -1,13 +1,17 @@
-button:not(:last-child) {
-    margin-right: 4px;
-}
-
 button {
     border: none;
     border-radius: 4px;
     background-color: slategray;
     color: white;
-    padding: 4px 8px;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:not(:last-child) {
+    margin-right: 4px;
 }
 
 button:hover, .selected {
@@ -21,14 +25,17 @@ button:active {
 .imageContainer {
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
-    width: 147px;
-    height: 254.75px;
-    margin-top: 5px;
+    height: 200px;
 }
 
-.imageContainer div:first-child {
+.image {
+    width: 140px;
+    height: 140px;
+}
+
+/* .imageContainer div:first-child {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -38,9 +45,9 @@ button:active {
 .imageContainer div:last-child {
     margin-top: 10px;
     width: max-content;
-}
+} */
 
-.timeDisplay, .buttonContainer, .imageContainer {
+.timeDisplay, .imageContainer {
     margin-bottom: 10px;
 }
 

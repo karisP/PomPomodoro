@@ -3,12 +3,12 @@ import useInterval from '../hooks/useInterval';
 import Toggle from '../Toggle/Toggle';
 import styles from './Timer.module.css';
 import audio from '../media/cheeringperson.mp3';
-import studyPom from '../media/study_pom.jpeg';
+import pom from '../media/pomeranian.png';
 
 const Timer = (props) => {
     //when mode is false, break mode but when mode is true, focus mode
     const [mode, setMode] = React.useState(true);
-    const [initialFocusMinutes, setInitialFocusMinutes] = React.useState(25);
+    const [initialFocusMinutes, setInitialFocusMinutes] = React.useState(1);
     const [initialBreakMinutes, setInitialBreakMinutes] = React.useState(5);
     const [minute, setMinute] = React.useState(mode ? initialFocusMinutes : initialBreakMinutes);
     const [second, setSecond] = React.useState(60);
@@ -25,7 +25,14 @@ const Timer = (props) => {
 
     const playSound = () => {
         let alarm = new Audio(audio);
-        alarm.play();
+        let promise = alarm.play();
+        if(promise !== undefined) {
+            promise.then(() => {
+                return promise;
+            }).catch(error => {
+                return;
+            });
+        };
     };
 
     const countDownMinutes = () => {
@@ -92,7 +99,7 @@ const Timer = (props) => {
             <Toggle onToggle={() => setMode(!mode)} checked={mode}/>
             {mode ?
                 <div className={styles.imageContainer}>
-                    <div><img src={studyPom} alt="study pomeranian" width="147px" height="219.75px"/></div>
+                    <div><img src={pom} alt="dog" className={styles.image} /></div>
                     <div>Focus Time!</div>
                 </div>
                 :
