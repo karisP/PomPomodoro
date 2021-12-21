@@ -18,6 +18,36 @@ button:active {
     background-color: rgb(244, 189, 88);
 }
 
-button:focus {
-    outline: black;
+/* button:focus {
+    border: 1px solid blue;
+} */
+
+.imageContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    width: 147px;
+    height: 254.75px;
+    margin-top: 5px;
+}
+
+.imageContainer div:first-child {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.imageContainer div:last-child {
+    margin-top: 10px;
+    width: max-content;
+}
+
+.timeDisplay, .buttonContainer, .imageContainer {
+    margin-bottom: 10px;
+}
+
+.timeDisplay {
+    font-size: 32px;
 }

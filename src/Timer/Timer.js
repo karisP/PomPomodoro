@@ -90,19 +90,19 @@ const Timer = (props) => {
     return (
         <>
             <Toggle onToggle={() => setMode(!mode)} checked={mode}/>
-            {mode === false ?
-                <div>
-                    {props.pomImage !== null ? props.pomImage : null}
-                    <div>Take A Break!</div>
-                </div>
-                :
-                <div>
-                    <img src={studyPom} alt="study pomeranian" width="147px" height="219.75px"/>
+            {mode ?
+                <div className={styles.imageContainer}>
+                    <div><img src={studyPom} alt="study pomeranian" width="147px" height="219.75px"/></div>
                     <div>Focus Time!</div>
                 </div>
+                :
+                <div className={styles.imageContainer}>
+                    <div>{props.pomImage !== null ? props.pomImage : null}</div>
+                    <div>Take A Break!</div>
+                </div>
             }
-            <div>{displayTime(minute)} : {displayTime(second)}</div>
-            <div>
+            <div className={styles.timeDisplay}>{displayTime(minute)} : {displayTime(second)}</div>
+            <div className={styles.buttonContainer}>
                 <button onClick={startTimer}>Start</button>
                 <button onClick={stopTimer}>Stop</button>
                 <button onClick={clearTimer}>Reset</button>
