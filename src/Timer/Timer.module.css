@@ -31,6 +31,9 @@ button:active {
 }
 
 .image {
+    background-image: url('../media/pomeranian.png');
+    background-repeat: no-repeat;
+    background-size: contain;
     width: 140px;
     height: 140px;
 }

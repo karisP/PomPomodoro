@@ -3,7 +3,6 @@ import useInterval from '../hooks/useInterval';
 import Toggle from '../Toggle/Toggle';
 import styles from './Timer.module.css';
 import audio from '../media/cheeringperson.mp3';
-import pom from '../media/pomeranian.png';
 
 const Timer = (props) => {
     //when mode is false, break mode but when mode is true, focus mode
@@ -107,7 +106,7 @@ const Timer = (props) => {
             <Toggle onToggle={() => setMode(!mode)} checked={mode}/>
             {mode ?
                 <div className={styles.imageContainer}>
-                    <div><img src={pom} alt="dog" className={styles.image} /></div>
+                    <div className={styles.image}></div>
                     <div>Focus Time!</div>
                 </div>
                 :
