@@ -7,25 +7,36 @@ button {
     font-size: 16px;
     padding: 8px 16px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 button:not(:last-child) {
     margin-right: 4px;
 }
 
-button:hover, .selected {
+.selected {
     background-color: orange;
+}
+
+button:hover {
+    background-color: rgb(236, 147, 4);
 }
 
 button:active {
     background-color: rgb(244, 189, 88);
+    outline: none;
+    font-weight: 500;
+}
+
+button:focus-visible {
+    outline: 2px solid black;
+    font-weight: 700;
 }
 
 .imageContainer {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     height: 200px;
 }
@@ -37,18 +48,6 @@ button:active {
     width: 140px;
     height: 140px;
 }
-
-/* .imageContainer div:first-child {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.imageContainer div:last-child {
-    margin-top: 10px;
-    width: max-content;
-} */
 
 .timeDisplay, .imageContainer {
     margin-bottom: 10px;

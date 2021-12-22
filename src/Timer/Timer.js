@@ -7,6 +7,7 @@ import audio from '../media/cheeringperson.mp3';
 const Timer = (props) => {
     //when mode is false, break mode but when mode is true, focus mode
     const [mode, setMode] = React.useState(true);
+    const [selectedTimerBtn, setSelectedTimerBtn] = React.useState("");
     const [initialFocusMinutes, setInitialFocusMinutes] = React.useState(1);
     const [initialBreakMinutes, setInitialBreakMinutes] = React.useState(5);
     const [minute, setMinute] = React.useState(mode ? initialFocusMinutes : initialBreakMinutes);
@@ -60,6 +61,7 @@ const Timer = (props) => {
     };
 
     const startTimer = () => {
+        setSelectedTimerBtn("start");
         //handles first click immediately subtracting minute
         if (clickCount === 0){
             setMinute(minute - 1);
@@ -71,11 +73,13 @@ const Timer = (props) => {
     };
 
     const stopTimer = () => {
+        setSelectedTimerBtn("stop");
         setSecondDelay(null);
         setMinuteDelay(null);
     };
 
     const clearTimer = () => {
+        setSelectedTimerBtn("reset");
         stopTimer();
         setMinute(mode ? initialFocusMinutes : initialBreakMinutes);
         setSecond(60);
@@ -117,9 +121,9 @@ const Timer = (props) => {
             }
             <div className={styles.timeDisplay}>{displayTime(minute)} : {displayTime(second)}</div>
             <div className={styles.buttonContainer}>
-                <button onClick={startTimer}>Start</button>
-                <button onClick={stopTimer}>Stop</button>
-                <button onClick={clearTimer}>Reset</button>
+                <button onClick={startTimer} className={selectedTimerBtn === "start" ? styles.selected : null}>Start</button>
+                <button onClick={stopTimer} className={selectedTimerBtn === "stop" ? styles.selected : null}>Stop</button>
+                <button onClick={clearTimer} className={selectedTimerBtn === "reset" ? styles.selected : null}>Reset</button>
             </div>
             <div>
                 <button 
