@@ -20,7 +20,10 @@ const Timer = (props) => {
     const timerFinished = (minute === 0 && second === 0);
 
     React.useEffect(() => {
+        stopTimer();
         setMinute(mode ? initialFocusMinutes : initialBreakMinutes);
+        setSecond(60);
+        setClickCount(0);
     }, [initialFocusMinutes, initialBreakMinutes, mode]);
 
     const playSound = () => {
@@ -80,6 +83,11 @@ const Timer = (props) => {
         setClickCount(0);
     };
 
+    const selectTime = (num) => {
+        clearTimer();
+        mode ? setInitialFocusMinutes(num) : setInitialBreakMinutes(num);
+    };
+
     let displayTime = (num) => {
         if (num >= 10 && num !== 60) return num;
         else if (num === 60) return `00`;
@@ -117,23 +125,23 @@ const Timer = (props) => {
             <div>
                 <button 
                     className={selectedButton(5) ? styles.selected : null}
-                    onClick={mode ? () => setInitialFocusMinutes(5) : () => setInitialBreakMinutes(5)}>5 min
+                    onClick={() => selectTime(5)}>5 min
                 </button>
                 <button
                     className={selectedButton(10) ? styles.selected : null}
-                    onClick={mode ? () => setInitialFocusMinutes(10) : () => setInitialBreakMinutes(10)}>10 min
+                    onClick={() => selectTime(10)}>10 min
                 </button>
                 <button
                     className={selectedButton(15) ? styles.selected : null}
-                    onClick={mode ? () => setInitialFocusMinutes(15) : () => setInitialBreakMinutes(15)}>15 min
+                    onClick={() => selectTime(15)}>15 min
                 </button>
                 <button
                     className={selectedButton(20) ? styles.selected : null}
-                    onClick={mode ? () => setInitialFocusMinutes(20) : () => setInitialBreakMinutes(20)}>20 min
+                    onClick={() => selectTime(20)}>20 min
                 </button>
                 <button 
                     className={selectedButton(25) ? styles.selected : null}
-                    onClick={mode ? () => setInitialFocusMinutes(25) : () => setInitialBreakMinutes(25)}>25 min
+                    onClick={() => selectTime(25)}>25 min
                 </button>
             </div>
         </>
