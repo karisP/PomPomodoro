@@ -26,6 +26,38 @@ const Timer = (props) => {
         setClickCount(0);
     }, [initialFocusMinutes, initialBreakMinutes, mode]);
 
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+navigator.mediaDevices
+    .getUserMedia({ audio: true })
+    .then(() => {
+        const source = audioContext.createBufferSource();
+        source.addEventListener('ended', () => {
+            source.stop();
+            audioContext.close();
+        });
+
+        const request = new XMLHttpRequest();
+
+        request.open('GET', audio, true);
+        request.responseType = 'arraybuffer';
+        request.onload = () => {
+            audioContext.decodeAudioData(
+                request.response,
+                (buffer) => {
+                    source.buffer = buffer;
+                    source.connect(audioContext.destination);
+                    source.start();
+                },
+                (e) => {
+                    console.log('Error with decoding audio data' + e.message);
+                });
+        }
+
+        request.send();
+    })
+    .catch(reason => console.error(`Audio permissions denied: ${reason}`));
+
     const playSound = () => {
         let alarm = new Audio(audio);
         let promise = alarm.play();
