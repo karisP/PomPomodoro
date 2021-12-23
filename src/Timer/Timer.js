@@ -28,50 +28,54 @@ const Timer = (props) => {
 
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-navigator.mediaDevices
-    .getUserMedia({ audio: true })
-    .then(() => {
-        const source = audioContext.createBufferSource();
-        source.addEventListener('ended', () => {
-            source.stop();
-            audioContext.close();
-        });
-
-        const request = new XMLHttpRequest();
-
-        request.open('GET', audio, true);
-        request.responseType = 'arraybuffer';
-        request.onload = () => {
-            audioContext.decodeAudioData(
-                request.response,
-                (buffer) => {
-                    source.buffer = buffer;
-                    source.connect(audioContext.destination);
-                    source.start();
-                },
-                (e) => {
-                    console.log('Error with decoding audio data' + e.message);
+    if (audioContext) {
+        navigator.mediaDevices
+            ?.getUserMedia({ audio: true })
+            .then(() => {
+                const source = audioContext.createBufferSource();
+                source.addEventListener('ended', () => {
+                    source.stop();
+                    audioContext.close();
                 });
-        }
 
-        request.send();
-    })
-    .catch(reason => console.error(`Audio permissions denied: ${reason}`));
+                const request = new XMLHttpRequest();
 
-    const playSound = () => {
-        let alarm = new Audio(audio);
-        let promise = alarm.play();
-        if(promise !== undefined) {
-            promise.then(() => {
-                return promise;
-            }).catch(error => {
-                return;
-            });
-        };
-    };
+                request.open('GET', audio, true);
+                request.responseType = 'arraybuffer';
+                if (timerFinished) {
+
+                    request.onload = () => {
+                        audioContext.decodeAudioData(
+                            request.response,
+                            (buffer) => {
+                                source.buffer = buffer;
+                                source.connect(audioContext.destination);
+                                source.start();
+                            },
+                            (e) => {
+                                console.log('Error with decoding audio data' + e.message);
+                            });
+                    }
+
+                }
+                request.send();
+            })
+            .catch(reason => console.error(`Audio permissions denied: ${reason}`));
+    }
+    // const playSound = () => {
+    //     let alarm = new Audio(audio);
+    //     let promise = alarm.play();
+    //     if(promise !== undefined) {
+    //         promise.then(() => {
+    //             return promise;
+    //         }).catch(error => {
+    //             return;
+    //         });
+    //     };
+    // };
 
     const countDownMinutes = () => {
-        if (minute > 0){
+        if (minute > 0) {
             return setMinute(minute - 1);
         } else {
             setMinuteDelay(null);
@@ -79,13 +83,13 @@ navigator.mediaDevices
     };
 
     const countDownSeconds = () => {
-        if (second > 0){
+        if (second > 0) {
             setSecond(second - 1);
         } else {
-            if (timerFinished){
+            if (timerFinished) {
                 stopTimer();
                 setMode(!mode);
-                playSound();
+                //playSound();
             } else {
                 setSecond(59);
             };
@@ -95,7 +99,7 @@ navigator.mediaDevices
     const startTimer = () => {
         setSelectedTimerBtn("start");
         //handles first click immediately subtracting minute
-        if (clickCount === 0){
+        if (clickCount === 0) {
             setMinute(minute - 1);
             setSecond(second - 1);
             setClickCount(clickCount + 1);
@@ -130,7 +134,7 @@ navigator.mediaDevices
     };
 
     const selectedButton = (num) => {
-        if ((mode === false && initialBreakMinutes === num) || (mode === true && initialFocusMinutes === num)){
+        if ((mode === false && initialBreakMinutes === num) || (mode === true && initialFocusMinutes === num)) {
             return true;
         } else {
             return false;
@@ -139,7 +143,7 @@ navigator.mediaDevices
 
     return (
         <>
-            <Toggle onToggle={() => setMode(!mode)} checked={mode}/>
+            <Toggle onToggle={() => setMode(!mode)} checked={mode} />
             {mode ?
                 <div className={styles.imageContainer}>
                     <div className={styles.image}></div>
@@ -158,7 +162,7 @@ navigator.mediaDevices
                 <button onClick={clearTimer} className={selectedTimerBtn === "reset" ? styles.selected : null}>Reset</button>
             </div>
             <div>
-                <button 
+                <button
                     className={selectedButton(5) ? styles.selected : null}
                     onClick={() => selectTime(5)}>5 min
                 </button>
@@ -174,7 +178,7 @@ navigator.mediaDevices
                     className={selectedButton(20) ? styles.selected : null}
                     onClick={() => selectTime(20)}>20 min
                 </button>
-                <button 
+                <button
                     className={selectedButton(25) ? styles.selected : null}
                     onClick={() => selectTime(25)}>25 min
                 </button>
