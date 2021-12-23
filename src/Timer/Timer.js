@@ -6,6 +6,7 @@ import audio from '../media/cheeringperson.mp3';
 
 const Timer = (props) => {
     //when mode is false, break mode but when mode is true, focus mode
+    const [audioContext, setAudioContext] = React.useState();
     const [mode, setMode] = React.useState(true);
     const [selectedTimerBtn, setSelectedTimerBtn] = React.useState("");
     const [initialFocusMinutes, setInitialFocusMinutes] = React.useState(1);
@@ -26,7 +27,7 @@ const Timer = (props) => {
         setClickCount(0);
     }, [initialFocusMinutes, initialBreakMinutes, mode]);
 
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    //const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
     if (audioContext) {
         navigator.mediaDevices
@@ -97,6 +98,7 @@ const Timer = (props) => {
     };
 
     const startTimer = () => {
+        setAudioContext(new (window.AudioContext || window.webkitAudioContext)());
         setSelectedTimerBtn("start");
         //handles first click immediately subtracting minute
         if (clickCount === 0) {
