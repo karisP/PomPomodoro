@@ -10,7 +10,7 @@ const Timer = (props) => {
     const [mode, setMode] = React.useState(true);
     const [selectedTimerBtn, setSelectedTimerBtn] = React.useState("");
     const [initialFocusMinutes, setInitialFocusMinutes] = React.useState(1);
-    const [initialBreakMinutes, setInitialBreakMinutes] = React.useState(5);
+    const [initialBreakMinutes, setInitialBreakMinutes] = React.useState(1);
     const [minute, setMinute] = React.useState(mode ? initialFocusMinutes : initialBreakMinutes);
     const [second, setSecond] = React.useState(60);
     const [minuteDelay, setMinuteDelay] = React.useState(null);
@@ -34,10 +34,10 @@ const Timer = (props) => {
             ?.getUserMedia({ audio: true })
             .then(() => {
                 const source = audioContext.createBufferSource();
-                source.addEventListener('ended', () => {
-                    source.stop();
-                    audioContext.close();
-                });
+                // source.addEventListener('ended', () => {
+                //     source.stop();
+                //     audioContext.close();
+                // });
 
                 const request = new XMLHttpRequest();
 
