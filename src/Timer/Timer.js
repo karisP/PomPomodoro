@@ -23,10 +23,11 @@ const Timer = (props) => {
     useMedia(audio, audioContext, timerFinished);
 
     React.useEffect(() => {
-        stopTimer();
+        stopTimer(false);
         setMinute(mode ? initialFocusMinutes : initialBreakMinutes);
         setSecond(60);
         setClickCount(0);
+        setSelectedTimerBtn("");
     }, [initialFocusMinutes, initialBreakMinutes, mode]); 
 
     const countDownMinutes = () => {
@@ -42,7 +43,7 @@ const Timer = (props) => {
             setSecond(second - 1);
         } else {
             if (timerFinished) {
-                stopTimer();
+                stopTimer(false);
                 setMode(!mode);
             } else {
                 setSecond(59);
@@ -64,15 +65,17 @@ const Timer = (props) => {
         setMinuteDelay(60000);
     };
 
-    const stopTimer = () => {
-        setSelectedTimerBtn("stop");
+    const stopTimer = (onButtonPress) => {
+        if (onButtonPress){
+            setSelectedTimerBtn("stop");
+        }
         setSecondDelay(null);
         setMinuteDelay(null);
     };
 
     const clearTimer = () => {
         setSelectedTimerBtn("reset");
-        stopTimer();
+        stopTimer(false);
         setMinute(mode ? initialFocusMinutes : initialBreakMinutes);
         setSecond(60);
         setClickCount(0);
@@ -114,7 +117,7 @@ const Timer = (props) => {
             <div className={styles.timeDisplay}>{displayTime(minute)} : {displayTime(second)}</div>
             <div className={styles.buttonContainer}>
                 <button onClick={startTimer} className={selectedTimerBtn === "start" ? styles.selected : null}>Start</button>
-                <button onClick={stopTimer} className={selectedTimerBtn === "stop" ? styles.selected : null}>Stop</button>
+                <button onClick={() => stopTimer(true)} className={selectedTimerBtn === "stop" ? styles.selected : null}>Stop</button>
                 <button onClick={clearTimer} className={selectedTimerBtn === "reset" ? styles.selected : null}>Reset</button>
             </div>
             <div>
