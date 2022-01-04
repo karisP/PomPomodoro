@@ -1,5 +1,6 @@
 import React from 'react';
 import useInterval from '../hooks/useInterval';
+import useMedia from '../hooks/useMedia';
 import Toggle from '../Toggle/Toggle';
 import styles from './Timer.module.css';
 import audio from '../media/cheeringperson.mp3';
@@ -16,64 +17,17 @@ const Timer = (props) => {
     const [minuteDelay, setMinuteDelay] = React.useState(null);
     const [secondDelay, setSecondDelay] = React.useState(null);
     const [clickCount, setClickCount] = React.useState(0);
+    const timerFinished = (minute === 0 && second === 0);
     useInterval(() => countDownSeconds(), secondDelay);
     useInterval(() => countDownMinutes(), minuteDelay);
-    const timerFinished = (minute === 0 && second === 0);
+    useMedia(audio, audioContext, timerFinished);
 
     React.useEffect(() => {
         stopTimer();
         setMinute(mode ? initialFocusMinutes : initialBreakMinutes);
         setSecond(60);
         setClickCount(0);
-    }, [initialFocusMinutes, initialBreakMinutes, mode]);
-
-    //const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-    if (audioContext) {
-        navigator.mediaDevices
-            ?.getUserMedia({ audio: true })
-            .then(() => {
-                const source = audioContext.createBufferSource();
-                // source.addEventListener('ended', () => {
-                //     source.stop();
-                //     audioContext.close();
-                // });
-
-                const request = new XMLHttpRequest();
-
-                request.open('GET', audio, true);
-                request.responseType = 'arraybuffer';
-                if (timerFinished) {
-
-                    request.onload = () => {
-                        audioContext.decodeAudioData(
-                            request.response,
-                            (buffer) => {
-                                source.buffer = buffer;
-                                source.connect(audioContext.destination);
-                                source.start();
-                            },
-                            (e) => {
-                                console.log('Error with decoding audio data' + e.message);
-                            });
-                    }
-
-                }
-                request.send();
-            })
-            .catch(reason => console.error(`Audio permissions denied: ${reason}`));
-    }
-    // const playSound = () => {
-    //     let alarm = new Audio(audio);
-    //     let promise = alarm.play();
-    //     if(promise !== undefined) {
-    //         promise.then(() => {
-    //             return promise;
-    //         }).catch(error => {
-    //             return;
-    //         });
-    //     };
-    // };
+    }, [initialFocusMinutes, initialBreakMinutes, mode]); 
 
     const countDownMinutes = () => {
         if (minute > 0) {
@@ -90,7 +44,6 @@ const Timer = (props) => {
             if (timerFinished) {
                 stopTimer();
                 setMode(!mode);
-                //playSound();
             } else {
                 setSecond(59);
             };
@@ -98,6 +51,7 @@ const Timer = (props) => {
     };
 
     const startTimer = () => {
+        console.log("start timer");
         setAudioContext(new (window.AudioContext || window.webkitAudioContext)());
         setSelectedTimerBtn("start");
         //handles first click immediately subtracting minute
