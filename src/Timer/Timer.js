@@ -9,8 +9,8 @@ const Timer = (props) => {
     const mode = props.mode;
     const [audioContext, setAudioContext] = React.useState();
     const [selectedTimerBtn, setSelectedTimerBtn] = React.useState("");
-    const [initialFocusMinutes, setInitialFocusMinutes] = React.useState(1);
-    const [initialBreakMinutes, setInitialBreakMinutes] = React.useState(1);
+    const [initialFocusMinutes, setInitialFocusMinutes] = React.useState(25);
+    const [initialBreakMinutes, setInitialBreakMinutes] = React.useState(5);
     const [minute, setMinute] = React.useState(mode ? initialFocusMinutes : initialBreakMinutes);
     const [second, setSecond] = React.useState(60);
     const [minuteDelay, setMinuteDelay] = React.useState(null);
@@ -120,6 +120,10 @@ const Timer = (props) => {
                 <button onClick={clearTimer} className={selectedTimerBtn === "reset" ? styles.selected : null}>Reset</button>
             </div>
             <div>
+                <button
+                    className={selectedButton(1) ? styles.selected : null}
+                    onClick={() => selectTime(1)}>1 min
+                </button>
                 <button
                     className={selectedButton(5) ? styles.selected : null}
                     onClick={() => selectTime(5)}>5 min
