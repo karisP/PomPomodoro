@@ -6,9 +6,8 @@ import styles from './Timer.module.css';
 import audio from '../media/cheeringperson.mp3';
 
 const Timer = (props) => {
-    //when mode is false, break mode but when mode is true, focus mode
+    const mode = props.mode;
     const [audioContext, setAudioContext] = React.useState();
-    const [mode, setMode] = React.useState(true);
     const [selectedTimerBtn, setSelectedTimerBtn] = React.useState("");
     const [initialFocusMinutes, setInitialFocusMinutes] = React.useState(1);
     const [initialBreakMinutes, setInitialBreakMinutes] = React.useState(1);
@@ -44,7 +43,7 @@ const Timer = (props) => {
         } else {
             if (timerFinished) {
                 stopTimer(false);
-                setMode(!mode);
+                props.setMode(!mode);
             } else {
                 setSecond(59);
             };
@@ -102,7 +101,7 @@ const Timer = (props) => {
 
     return (
         <>
-            <Toggle onToggle={() => setMode(!mode)} checked={mode} />
+            <Toggle onToggle={() => props.setMode(!mode)} checked={mode} />
             {mode ?
                 <div className={styles.imageContainer}>
                     <div className={styles.image}></div>
@@ -110,7 +109,7 @@ const Timer = (props) => {
                 </div>
                 :
                 <div className={styles.imageContainer}>
-                    <div>{props.pomImage !== null ? props.pomImage : null}</div>
+                    <div>{props.pomImage === null ? <div className={styles.image}></div> : props.pomImage}</div>
                     <div>Take A Break!</div>
                 </div>
             }
