@@ -1,6 +1,7 @@
 import React from 'react';
 
 const useMedia = (audio, audioContext, timerFinished) => {
+
     const savedSource = React.useRef(audioContext?.createBufferSource());
     React.useEffect(() => {
         if (audioContext){
@@ -14,9 +15,9 @@ const useMedia = (audio, audioContext, timerFinished) => {
     React.useEffect(() => {
         console.log("audioContext", audioContext, "bufferSource", savedSource.current, timerFinished);
         if (audioContext && savedSource.current) {
-            navigator.mediaDevices
-                ?.getUserMedia({ audio: true })
-                .then(() => {
+            // navigator.mediaDevices
+            //     ?.getUserMedia({ audio: true })
+            //     .then(() => {
                     const source = savedSource.current;
                     console.log("got media...opening a request");
                     const request = new XMLHttpRequest();
@@ -39,8 +40,8 @@ const useMedia = (audio, audioContext, timerFinished) => {
 
                         request.send();
                     }
-                })
-                .catch(reason => console.error(`Audio permissions denied: ${reason}`));
+                // })
+                // .catch(reason => console.error(`Audio permissions denied: ${reason}`));
         }
     }, [audioContext, timerFinished, audio]);
 };
