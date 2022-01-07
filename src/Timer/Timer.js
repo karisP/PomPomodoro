@@ -43,7 +43,7 @@ const Timer = (props) => {
         } else {
             if (timerFinished) {
                 stopTimer(false);
-                setTimeout(() => props.setMode(!mode), 1000);
+                setTimeout(() => props.setMode(!mode), 2500);
             } else {
                 setSecond(59);
             };
