@@ -1,13 +1,13 @@
 import React from 'react';
 import useInterval from '../hooks/useInterval';
-import useMedia from '../hooks/useMedia';
 import Toggle from '../Toggle/Toggle';
 import styles from './Timer.module.css';
-import audio from '../media/cheeringperson.mp3';
+import yayAudio from '../media/cheeringperson.mp3';
+import useAudio from '../hooks/useAudio';
 
 const Timer = (props) => {
     const mode = props.mode;
-    const [audioContext, setAudioContext] = React.useState();
+    const blankAudio = "data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV";
     const [selectedTimerBtn, setSelectedTimerBtn] = React.useState("");
     const [initialFocusMinutes, setInitialFocusMinutes] = React.useState(25);
     const [initialBreakMinutes, setInitialBreakMinutes] = React.useState(5);
@@ -19,7 +19,7 @@ const Timer = (props) => {
     const timerFinished = (minute === 0 && second === 0);
     useInterval(() => countDownSeconds(), secondDelay);
     useInterval(() => countDownMinutes(), minuteDelay);
-    useMedia(audio, audioContext, timerFinished);
+    useAudio(blankAudio, yayAudio, timerFinished, props.audioEnabled);
 
     React.useEffect(() => {
         stopTimer(false);
@@ -27,7 +27,7 @@ const Timer = (props) => {
         setSecond(60);
         setClickCount(0);
         setSelectedTimerBtn("");
-    }, [initialFocusMinutes, initialBreakMinutes, mode]); 
+    }, [initialFocusMinutes, initialBreakMinutes, mode]);
 
     const countDownMinutes = () => {
         if (minute > 0) {
@@ -43,7 +43,7 @@ const Timer = (props) => {
         } else {
             if (timerFinished) {
                 stopTimer(false);
-                props.setMode(!mode);
+                setTimeout(() => props.setMode(!mode), 1000);
             } else {
                 setSecond(59);
             };
@@ -51,8 +51,6 @@ const Timer = (props) => {
     };
 
     const startTimer = () => {
-        console.log("start timer");
-        setAudioContext(new (window.AudioContext || window.webkitAudioContext)());
         setSelectedTimerBtn("start");
         //handles first click immediately subtracting minute
         if (clickCount === 0) {
@@ -65,7 +63,7 @@ const Timer = (props) => {
     };
 
     const stopTimer = (onButtonPress) => {
-        if (onButtonPress){
+        if (onButtonPress) {
             setSelectedTimerBtn("stop");
         }
         setSecondDelay(null);

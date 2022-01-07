@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.css';
 import Timer from './Timer/Timer';
+import Modal from './Modal/Modal';
 
 function App() {
   const [resultData, setResultData] = React.useState();
   const [randomInt, setRandomInt] = React.useState(0);
+  const [audioEnabled, setAudioEnabled] = React.useState(false);
+  const [closeModal, setCloseModal] = React.useState(false);
   //when mode is false, break mode but when mode is true, focus mode
   const [mode, setMode] = React.useState(true);
   React.useEffect(() => {
@@ -30,9 +33,10 @@ function App() {
 
   return (
     <div className="App">
+      {closeModal ? null : <Modal setAudioEnabled={setAudioEnabled} setCloseModal={setCloseModal}/> }
       <header className="App-header">
         <h1>PomPomodoro</h1>
-        <Timer pomImage={pomImage} mode={mode} setMode={setMode}/>
+        <Timer pomImage={pomImage} mode={mode} setMode={setMode} audioEnabled={audioEnabled}/>
       </header>
     </div>
   );

@@ -1,0 +1,60 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:fixed;
+    padding: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: rgba(44,41,41,.65);
+    border-radius: 10px;
+    color: darkslategray;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 10px;
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    min-height: 150px;
+    min-width: 175px;
+    max-width: 700px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.message div {
+    padding: 10px;
+}
+
+.close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 18px;
+    height: 18px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml,%0A%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.8416 13.7857L4.47174 5.18499M4.47193 13.7858L12.8417 5.185' stroke='black' stroke-width='2'/%3E%3C/svg%3E%0A");
+}
+
+.close:hover { 
+    background-image: url("data:image/svg+xml,%0A%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.8416 13.7857L4.47174 5.18499M4.47193 13.7858L12.8417 5.185' stroke='orange' stroke-width='2'/%3E%3C/svg%3E%0A");
+}
+
+.container button {
+    margin-top: 0;
+}
+
+.container button:first-child {
+    margin-right: 8px;
+}
