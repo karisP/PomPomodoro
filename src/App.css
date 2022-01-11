@@ -16,6 +16,10 @@
   padding: 0 10px 10px 10px;
 }
 
+canvas {
+  position: absolute;
+}
+
 @media only screen and (min-height: 768px) {
   .App-header h1 {
     position: absolute;

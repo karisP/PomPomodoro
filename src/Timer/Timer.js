@@ -4,6 +4,7 @@ import Toggle from '../Toggle/Toggle';
 import styles from './Timer.module.css';
 import yayAudio from '../media/cheeringperson.mp3';
 import useAudio from '../hooks/useAudio';
+import confetti from "canvas-confetti";
 
 const Timer = (props) => {
     const mode = props.mode;
@@ -42,6 +43,7 @@ const Timer = (props) => {
             setSecond(second - 1);
         } else {
             if (timerFinished) {
+                confetti();
                 stopTimer(false);
                 setTimeout(() => props.setMode(!mode), 2500);
             } else {
