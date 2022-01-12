@@ -2,12 +2,15 @@ import React from 'react';
 import './App.css';
 import Timer from './Timer/Timer';
 import Modal from './Modal/Modal';
+import Settings from './Settings/Settings';
 
 function App() {
   const [resultData, setResultData] = React.useState();
   const [randomInt, setRandomInt] = React.useState(0);
   const [audioEnabled, setAudioEnabled] = React.useState(false);
+  const [confettiEnabled, setConfettiEnabled] = React.useState(true);
   const [closeModal, setCloseModal] = React.useState(false);
+  const [settingsOpen, setSettingsOpen] = React.useState(false);
   //when mode is false, break mode but when mode is true, focus mode
   const [mode, setMode] = React.useState(true);
   React.useEffect(() => {
@@ -34,9 +37,24 @@ function App() {
   return (
     <div className="App">
       {closeModal ? null : <Modal setAudioEnabled={setAudioEnabled} setCloseModal={setCloseModal}/> }
+      <Settings
+        audioEnabled={audioEnabled}
+        setAudioEnabled={setAudioEnabled}
+        confettiEnabled={confettiEnabled}
+        setConfettiEnabled={setConfettiEnabled}
+        settingsOpen={settingsOpen}
+        setSettingsOpen={setSettingsOpen}
+        />
       <header className="App-header">
-        <h1>PomPomodoro</h1>
-        <Timer pomImage={pomImage} mode={mode} setMode={setMode} audioEnabled={audioEnabled}/>
+          <h1>PomPomodoro</h1>
+        <Timer
+          pomImage={pomImage}
+          mode={mode}
+          setMode={setMode}
+          audioEnabled={audioEnabled}
+          confettiEnabled={confettiEnabled}
+          setSettingsOpen={setSettingsOpen}
+        />
       </header>
     </div>
   );

@@ -53,6 +53,20 @@ button:focus-visible {
     font-size: 32px;
 }
 
+.buttonContainer {
+    display: flex;
+}
+
+.settings {
+    display: flex;
+    align-items: center;
+    padding: 4px 16px;
+}
+
+.settings img {
+    width: 20px;
+}
+
 @media screen and (min-width: 1024px){
     button:hover {
         background-color: rgb(236, 147, 4);

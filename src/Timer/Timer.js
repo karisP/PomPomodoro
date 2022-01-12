@@ -43,7 +43,7 @@ const Timer = (props) => {
             setSecond(second - 1);
         } else {
             if (timerFinished) {
-                confetti();
+                if (props.confettiEnabled) confetti();
                 stopTimer(false);
                 setTimeout(() => props.setMode(!mode), 2500);
             } else {
@@ -118,6 +118,9 @@ const Timer = (props) => {
                 <button onClick={startTimer} className={selectedTimerBtn === "start" ? styles.selected : null}>Start</button>
                 <button onClick={() => stopTimer(true)} className={selectedTimerBtn === "stop" ? styles.selected : null}>Stop</button>
                 <button onClick={clearTimer} className={selectedTimerBtn === "reset" ? styles.selected : null}>Reset</button>
+                <button className={styles.settings} onClick={() => props.setSettingsOpen(true)}>
+                    <img src="https://img.icons8.com/external-prettycons-lineal-color-prettycons/49/000000/external-settings-essentials-prettycons-lineal-color-prettycons-3.png" alt="settings" />
+                </button>
             </div>
             <div>
                 <button

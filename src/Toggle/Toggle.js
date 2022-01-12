@@ -9,12 +9,12 @@ const Toggle = (props) => {
 
     return (
         <div className={styles.toggle}>
-            Break
+            {props.settings ? null : "Break"}
             <label className={styles.switch}>
                 <input type="checkbox" onChange={(e) => onChangeToggle(e)} checked={props.checked} />
                 <span className={`${styles.slider} ${styles.round}`}></span>
             </label>
-            Focus
+            {props.settings ? null : "Focus"}
         </div>
     )
 }
