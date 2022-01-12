@@ -50,7 +50,26 @@ button:focus-visible {
 }
 
 .timeDisplay {
+    display: flex;
     font-size: 32px;
+}
+
+.timeDisplay span {
+    padding: 0 5px;
+}
+
+.timeDisplay div {
+    margin-top: 3px;
+}
+
+select {
+    font-size: 30px;
+    color: inherit;
+    margin-top: 3px;
+}
+
+select + span {
+    font-size: 30px;
 }
 
 .buttonContainer {
@@ -60,7 +79,6 @@ button:focus-visible {
 .settings {
     display: flex;
     align-items: center;
-    padding: 4px 16px;
 }
 
 .settings img {

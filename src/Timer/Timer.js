@@ -8,6 +8,7 @@ import confetti from "canvas-confetti";
 import gear from "../media/icons8-settings-49.png";
 
 const Timer = (props) => {
+    const minuteOptions = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45];
     const mode = props.mode;
     const blankAudio = "data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV";
     const [selectedTimerBtn, setSelectedTimerBtn] = React.useState("");
@@ -100,6 +101,14 @@ const Timer = (props) => {
         };
     };
 
+    const onChangeMinute = (e) => {
+        if (e.currentTarget.value !== "null") selectTime(e.currentTarget.value);
+    }
+
+    //logic notes
+    //initally have the select
+    //also when clicking reset show the select but number should still be initialMinutes
+
     return (
         <>
             <Toggle onToggle={() => props.setMode(!mode)} checked={mode} />
@@ -114,16 +123,35 @@ const Timer = (props) => {
                     <div>Take A Break!</div>
                 </div>
             }
-            <div className={styles.timeDisplay}>{displayTime(minute)} : {displayTime(second)}</div>
+            {selectedTimerBtn === "reset" ?
+            <div>
+                <select autofocus onChange={(e) => onChangeMinute(e)}>
+                    <option value="null">Select</option>
+                    {minuteOptions.map((min) => {
+                        return (
+                            <option key={min} value={min} selected={selectedButton(min)}>{displayTime(min)}</option>
+                        )
+                    })}
+                </select>
+                <span>&nbsp;min</span>
+            </div>
+                :
+                <div className={styles.timeDisplay}>
+                    <div>{displayTime(minute)}</div>
+                    <span>:</span>
+                    <div>{displayTime(second)}</div>
+                </div>
+            }
             <div className={styles.buttonContainer}>
                 <button onClick={startTimer} className={selectedTimerBtn === "start" ? styles.selected : null}>Start</button>
                 <button onClick={() => stopTimer(true)} className={selectedTimerBtn === "stop" ? styles.selected : null}>Stop</button>
                 <button onClick={clearTimer} className={selectedTimerBtn === "reset" ? styles.selected : null}>Reset</button>
-                <button className={styles.settings} onClick={() => props.setSettingsOpen(true)}>
-                    <img src={gear} alt="settings"/>
-                </button>
             </div>
-            <div>
+            <button className={styles.settings} onClick={() => props.setSettingsOpen(true)}>
+                <img src={gear} alt="settings" />
+                <span>&nbsp;Settings</span>
+            </button>
+            {/* <div>
                 <button
                     className={selectedButton(1) ? styles.selected : null}
                     onClick={() => selectTime(1)}>1 min
@@ -148,7 +176,7 @@ const Timer = (props) => {
                     className={selectedButton(25) ? styles.selected : null}
                     onClick={() => selectTime(25)}>25 min
                 </button>
-            </div>
+            </div> */}
         </>
     );
 };
