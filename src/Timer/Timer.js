@@ -5,6 +5,7 @@ import styles from './Timer.module.css';
 import yayAudio from '../media/cheeringperson.mp3';
 import useAudio from '../hooks/useAudio';
 import confetti from "canvas-confetti";
+import gear from "../media/icons8-settings-49.png";
 
 const Timer = (props) => {
     const mode = props.mode;
@@ -119,7 +120,7 @@ const Timer = (props) => {
                 <button onClick={() => stopTimer(true)} className={selectedTimerBtn === "stop" ? styles.selected : null}>Stop</button>
                 <button onClick={clearTimer} className={selectedTimerBtn === "reset" ? styles.selected : null}>Reset</button>
                 <button className={styles.settings} onClick={() => props.setSettingsOpen(true)}>
-                    <img src="https://img.icons8.com/external-prettycons-lineal-color-prettycons/49/000000/external-settings-essentials-prettycons-lineal-color-prettycons-3.png" alt="settings" />
+                    <img src={gear} alt="settings"/>
                 </button>
             </div>
             <div>
