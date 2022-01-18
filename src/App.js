@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import Timer from './Timer/Timer';
-import Modal from './Modal/Modal';
-import Settings from './Settings/Settings';
+import Timer from './components/Timer/Timer';
+import Modal from './components/Modal/Modal';
+import Settings from './components/Settings/Settings';
 
 function App() {
   const [resultData, setResultData] = React.useState();

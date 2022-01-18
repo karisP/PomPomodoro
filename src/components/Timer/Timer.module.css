@@ -38,7 +38,7 @@ button:focus-visible {
 }
 
 .image {
-    background-image: url('../media/pomeranian.png');
+    background-image: url('../../media/pomeranian.png');
     background-repeat: no-repeat;
     background-size: contain;
     width: 140px;
@@ -52,20 +52,16 @@ button:focus-visible {
 .timeDisplay {
     display: flex;
     font-size: 32px;
+    height: 41px;
 }
 
 .timeDisplay span {
     padding: 0 5px;
 }
 
-.timeDisplay div {
-    margin-top: 3px;
-}
-
 select {
     font-size: 30px;
     color: inherit;
-    margin-top: 3px;
 }
 
 select + span {
@@ -83,6 +79,7 @@ select + span {
 
 .settings img {
     width: 20px;
+    /* margin-right: 3px; */
 }
 
 @media screen and (min-width: 1024px){
