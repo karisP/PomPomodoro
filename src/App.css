@@ -20,10 +20,49 @@ canvas {
   position: absolute;
 }
 
+button {
+  border: none;
+  border-radius: 4px;
+  background-color: slategray;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  height: 45px;
+}
+
+button:not(:last-child) {
+  margin-right: 8px;
+}
+
+button:active {
+  background-color: rgb(244, 189, 88);
+  outline: none;
+  font-weight: 500;
+}
+
+button:focus-visible {
+  outline: 2px solid black;
+  font-weight: 700;
+}
+
+
 @media only screen and (min-height: 768px) {
   .App-header h1 {
     position: absolute;
     top: 10%;
     margin: 0;
   }
-} 
+}
+
+@media screen and (min-width: 1024px){
+  button {
+      height: 35px;
+  }
+
+  button:hover {
+      background-color: rgb(236, 147, 4);
+  }
+}

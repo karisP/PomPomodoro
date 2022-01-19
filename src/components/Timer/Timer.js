@@ -5,7 +5,7 @@ import styles from './Timer.module.css';
 import yayAudio from '../../media/cheeringperson.mp3';
 import useAudio from '../../hooks/useAudio';
 import confetti from "canvas-confetti";
-//import gear from "../../media/icons8-settings-49.png";
+import gear from "../../media/icons8-settings.svg";
 import TimeDisplay from '../TimeDisplay/TimeDisplay';
 
 const Timer = (props) => {
@@ -91,12 +91,12 @@ const Timer = (props) => {
         <>
             <Toggle onToggle={() => props.setMode(!mode)} checked={mode} />
             {mode ?
-                <div className={styles.imageContainer}>
+                <div className={styles['image-container']}>
                     <div className={styles.image}></div>
                     <div>Focus Time!</div>
                 </div>
                 :
-                <div className={styles.imageContainer}>
+                <div className={styles['image-container']}>
                     <div>{props.pomImage === null ? <div className={styles.image}></div> : props.pomImage}</div>
                     <div>Take A Break!</div>
                 </div>
@@ -108,13 +108,13 @@ const Timer = (props) => {
                 minute={minute}
                 second={second}
             />
-            <div className={styles.buttonContainer}>
-                <button onClick={startTimer} className={selectedTimerBtn === "start" ? styles.selected : null}>Start</button>
-                <button onClick={() => stopTimer(true)} className={selectedTimerBtn === "stop" ? styles.selected : null}>Stop</button>
-                <button onClick={clearTimer} className={selectedTimerBtn === "reset" ? styles.selected : null}>Reset</button>
+            <div className={styles['button-container']}>
+                <button onClick={startTimer} className={selectedTimerBtn === "start" ? styles.selected : null}>▶︎ Start</button>
+                <button onClick={() => stopTimer(true)} className={selectedTimerBtn === "stop" ? `${styles.selected}${styles.stop}` : styles.stop}><span>◼︎</span>Stop</button>
+                <button onClick={clearTimer} className={selectedTimerBtn === "reset" ? styles.selected : null}>⏎ Reset</button>
             </div>
             <button className={styles.settings} onClick={() => props.setSettingsOpen(true)}>
-                {/* <img src={gear} alt="settings" /> */}
+                <img src={gear} alt="settings" />
                 <span>Settings</span>
             </button>
         </>

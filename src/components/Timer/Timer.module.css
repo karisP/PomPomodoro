@@ -1,35 +1,8 @@
-button {
-    border: none;
-    border-radius: 4px;
-    background-color: slategray;
-    color: white;
-    font-weight: 500;
-    font-size: 16px;
-    padding: 8px 16px;
-    cursor: pointer;
-    margin-top: 15px;
-}
-
-button:not(:last-child) {
-    margin-right: 4px;
-}
-
 .selected {
     background-color: orange;
-}
+  }
 
-button:active {
-    background-color: rgb(244, 189, 88);
-    outline: none;
-    font-weight: 500;
-}
-
-button:focus-visible {
-    outline: 2px solid black;
-    font-weight: 700;
-}
-
-.imageContainer {
+.image-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,31 +18,64 @@ button:focus-visible {
     height: 140px;
 }
 
-.timeDisplay, .imageContainer {
+.time-display, .image-container {
     margin-bottom: 10px;
 }
 
-.timeDisplay {
+.time-display {
     display: flex;
+    align-items: flex-end;
     font-size: 32px;
     height: 41px;
 }
 
-.timeDisplay span {
+.time-display span {
     padding: 0 5px;
 }
 
+.select-container {
+    position:relative;
+    display: inline;
+}
+
 select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background:white;
+    border: 1px solid darkslategray;
+    border-radius: 3px;
+    padding: 5px 22px 5px 8px;
     font-size: 30px;
     color: inherit;
+    cursor: pointer;
 }
 
-select + span {
-    font-size: 30px;
+.select-container:after {
+    content:"";
+    width:0;
+    height:0;
+    position: absolute;
+    pointer-events: none;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    top: 50%;
+    right: 8px;
+    border-top: 8px solid black;
+    opacity: 0.5;
 }
 
-.buttonContainer {
+select::-ms-expand {
+    display: none;
+}
+
+.button-container {
     display: flex;
+}
+
+.button-container button {
+    display: flex;
+    align-items: center;
 }
 
 .settings {
@@ -78,12 +84,17 @@ select + span {
 }
 
 .settings img {
-    width: 20px;
-    /* margin-right: 3px; */
+    width: 17px;
+    margin-right: 5px;
 }
 
-@media screen and (min-width: 1024px){
-    button:hover {
-        background-color: rgb(236, 147, 4);
-    }
+.stop {
+    display: flex;
+}
+
+.stop span {
+    display: flex;
+    padding-top: 1px;
+    font-size: 22px;
+    line-height: 19px;
 }
