@@ -20,18 +20,20 @@ const TimeDisplay = (props) => {
 
     return (
         props.selectedTimerBtn === "reset" ?
-            <div className={styles.timeDisplay}>
-                <select autoFocus onChange={(e) => onChangeMinute(e)} value={value}>
-                    {minuteOptions.map((min) => {
-                        return (
-                            <option key={min} value={min}>{displayTime(min)}</option>
-                        )
-                    })}
-                </select>
+            <div className={styles['time-display']}>
+                <div className={styles['select-container']}>
+                    <select autoFocus onChange={(e) => onChangeMinute(e)} value={value}>
+                        {minuteOptions.map((min) => {
+                            return (
+                                <option key={min} value={min}>{displayTime(min)}</option>
+                            )
+                        })}
+                    </select>
+                </div>
                 <span>&nbsp;min</span>
             </div>
             :
-            <div className={styles.timeDisplay}>
+            <div className={styles['time-display']}>
                 <div>{displayTime(props.minute)}</div>
                 <span>:</span>
                 <div>{displayTime(props.second)}</div>
