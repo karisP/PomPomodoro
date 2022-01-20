@@ -109,9 +109,17 @@ const Timer = (props) => {
                 second={second}
             />
             <div className={styles['button-container']}>
-                <button onClick={startTimer} className={selectedTimerBtn === "start" ? styles.selected : null}>▶︎ Start</button>
-                <button onClick={() => stopTimer(true)} className={selectedTimerBtn === "stop" ? `${styles.selected}${styles.stop}` : styles.stop}><span>◼︎</span>Stop</button>
-                <button onClick={clearTimer} className={selectedTimerBtn === "reset" ? styles.selected : null}>⏎ Reset</button>
+                <button onClick={startTimer} className={selectedTimerBtn === "start" ? styles.selected : null}>
+                    ▶︎ Start
+                </button>
+                <button onClick={() => stopTimer(true)} className={selectedTimerBtn === "stop" ? styles.selected : null}>
+                    <span className={styles.stop}></span>
+                    <span>Stop</span>
+                </button>
+                <button onClick={clearTimer} className={selectedTimerBtn === "reset" ? styles.selected : null}>
+                    <span className={styles.refresh}></span>
+                    Reset
+                </button>
             </div>
             <button className={styles.settings} onClick={() => props.setSettingsOpen(true)}>
                 <img src={gear} alt="settings" />
