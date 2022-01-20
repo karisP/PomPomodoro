@@ -6,14 +6,14 @@
   position: relative;
   background-image: url('./media/pompom_bkgrd.jpeg');
   background-size: cover;
-  min-height: 100vh;
+  min-height: calc(100vh - 20px);
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: calc(10px + 2vmin);
   color: slategray;
   justify-content: center;
-  padding: 0 10px 10px 10px;
+  padding: 10px;
 }
 
 canvas {
