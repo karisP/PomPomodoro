@@ -6,7 +6,7 @@
     position: absolute;
     width: -webkit-fill-available;
     padding: 10px;
-    height: 100vh;
+    height: calc(100vh - 20px);
     z-index: 1;
     color: darkslategray;
 }
