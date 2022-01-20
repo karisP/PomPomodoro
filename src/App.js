@@ -45,7 +45,7 @@ function App() {
         settingsOpen={settingsOpen}
         setSettingsOpen={setSettingsOpen}
         />
-      <header className="App-header">
+      <main className="App-main">
           <h1>PomPomodoro</h1>
         <Timer
           pomImage={pomImage}
@@ -55,7 +55,7 @@ function App() {
           confettiEnabled={confettiEnabled}
           setSettingsOpen={setSettingsOpen}
         />
-      </header>
+      </main>
     </div>
   );
 }
