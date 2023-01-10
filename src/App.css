@@ -4,7 +4,7 @@
 
 .App-main {
   position: relative;
-  background-image: url('./media/pompom_bkgrd.jpeg');
+  background-image: url("./media/pompom_bkgrd.jpeg");
   background-size: cover;
   min-height: calc(100vh - 20px);
   display: flex;
@@ -48,6 +48,16 @@ button:focus-visible {
   font-weight: 700;
 }
 
+.settings {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.settings img {
+  width: 17px;
+  margin-right: 5px;
+}
 
 @media only screen and (min-height: 768px) {
   .App-header h1 {
@@ -57,12 +67,12 @@ button:focus-visible {
   }
 }
 
-@media screen and (min-width: 1024px){
+@media screen and (min-width: 1024px) {
   button {
-      height: 35px;
+    height: 35px;
   }
 
   button:hover {
-      background-color: rgb(236, 147, 4);
+    background-color: rgb(236, 147, 4);
   }
 }
