@@ -1,60 +1,70 @@
-import React from 'react';
-import './App.css';
-import Timer from './components/Timer/Timer';
-import Modal from './components/Modal/Modal';
-import Settings from './components/Settings/Settings';
+import React from "react";
+import "./App.css";
+import gear from "./media/icons8-settings.svg";
+import Timer from "./components/Timer";
+import Modal from "./components/Modal";
+import Toggle from "./components/Toggle";
+import ImageDisplay from "./components/ImageDisplay";
+import Settings from "./components/Settings";
 
 function App() {
-  const [resultData, setResultData] = React.useState();
-  const [randomInt, setRandomInt] = React.useState(0);
+  //when mode is false, break mode but when mode is true, focus mode
+  const [mode, setMode] = React.useState(true);
   const [audioEnabled, setAudioEnabled] = React.useState(false);
   const [confettiEnabled, setConfettiEnabled] = React.useState(true);
   const [closeModal, setCloseModal] = React.useState(false);
   const [settingsOpen, setSettingsOpen] = React.useState(false);
-  //when mode is false, break mode but when mode is true, focus mode
-  const [mode, setMode] = React.useState(true);
-  React.useEffect(() => {
-    fetch(`https://www.reddit.com/r/Pomeranians.json`)
-      .then(res => res.json())
-      .then((result) => {
-        setResultData(result.data);
-      });
-  }, []);
 
-  React.useEffect(() => {
-    setRandomInt(Math.floor(Math.random() * 25));
+  const onToggleMode = React.useCallback(() => {
+    setMode(!mode);
   }, [mode]);
 
-  const pomImage = <>
-    {resultData && resultData.children[randomInt] && resultData.children[randomInt].data && resultData.children[randomInt].data.thumbnail ?
-      <img
-        src={resultData.children[randomInt].data.thumbnail}
-        alt={resultData.children[randomInt].data.title}
-      />
-      : null}
-  </>;
+  const onToggleSettingsMenu = React.useCallback(() => {
+    setSettingsOpen(!settingsOpen);
+  }, [settingsOpen]);
+
+  const onChangeAudioEnabled = React.useCallback((arg) => {
+    setAudioEnabled(arg);
+  }, []);
+
+  const onToggleConfetti = React.useCallback(() => {
+    setConfettiEnabled(!confettiEnabled);
+  }, [confettiEnabled]);
+
+  const onCloseModal = React.useCallback(() => {
+    setCloseModal(true);
+  }, []);
 
   return (
     <div className="App">
-      {closeModal ? null : <Modal setAudioEnabled={setAudioEnabled} setCloseModal={setCloseModal}/> }
+      {closeModal ? null : (
+        <Modal
+          onChangeAudioEnabled={onChangeAudioEnabled}
+          onCloseModal={onCloseModal}
+        />
+      )}
       <Settings
         audioEnabled={audioEnabled}
-        setAudioEnabled={setAudioEnabled}
+        onChangeAudioEnabled={onChangeAudioEnabled}
         confettiEnabled={confettiEnabled}
-        setConfettiEnabled={setConfettiEnabled}
+        toggleConfettiEnabled={onToggleConfetti}
         settingsOpen={settingsOpen}
-        setSettingsOpen={setSettingsOpen}
-        />
+        toggleSettingsMenu={onToggleSettingsMenu}
+      />
       <main className="App-main">
-          <h1>PomPomodoro</h1>
+        <h1>PomPomodoro</h1>
+        <Toggle onToggle={onToggleMode} checked={mode} />
+        <ImageDisplay mode={mode} />
         <Timer
-          pomImage={pomImage}
           mode={mode}
-          setMode={setMode}
+          toggleMode={onToggleMode}
           audioEnabled={audioEnabled}
           confettiEnabled={confettiEnabled}
-          setSettingsOpen={setSettingsOpen}
         />
+        <button className="settings" onClick={onToggleSettingsMenu}>
+          <img src={gear} alt="settings" />
+          <span>Settings</span>
+        </button>
       </main>
     </div>
   );

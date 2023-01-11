@@ -1,0 +1,16 @@
+.image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  margin-bottom: 10px;
+}
+
+.image {
+  background-image: url("../../media/pomeranian.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 140px;
+  height: 140px;
+}
